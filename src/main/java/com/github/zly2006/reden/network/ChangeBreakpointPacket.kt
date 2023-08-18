@@ -2,9 +2,6 @@ package com.github.zly2006.reden.network
 
 import com.github.zly2006.reden.debugger.breakpoint.BreakPoint
 import com.github.zly2006.reden.debugger.breakpoint.breakpoints
-import com.github.zly2006.reden.utils.isClient
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking
 import net.fabricmc.fabric.api.networking.v1.*
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.network.PacketByteBuf
@@ -52,12 +49,6 @@ data class ChangeBreakpointPacket(
                         bp.flags,
                         id
                     ))
-                }
-            }
-            if (isClient) {
-                ClientPlayNetworking.registerGlobalReceiver(pType, action)
-                ClientPlayConnectionEvents.JOIN.register { handler, sender, client ->
-                    breakpoints.clear()
                 }
             }
         }

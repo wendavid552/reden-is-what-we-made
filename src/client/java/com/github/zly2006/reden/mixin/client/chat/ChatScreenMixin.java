@@ -1,4 +1,4 @@
-package com.github.zly2006.reden.mixin.chat;
+package com.github.zly2006.reden.mixin.client.chat;
 
 import com.github.zly2006.reden.access.VisibleChatHudLineAccess;
 import com.github.zly2006.reden.gui.QuickMenuWidget;
@@ -33,7 +33,7 @@ import static com.github.zly2006.reden.malilib.MalilibSettingsKt.*;
 @Mixin(ChatScreen.class)
 public abstract class ChatScreenMixin extends Screen {
     @Unique QuickMenuWidget quickMenuWidget;
-    private static final Pattern urlPattern = Pattern.compile("(https?://)?[a-zA-Z0-9\\-.]+\\.[a-zA-Z]{2,8}(/\\S*)?");
+    private static final @Unique Pattern urlPattern = Pattern.compile("(https?://)?[a-zA-Z0-9\\-.]+\\.[a-zA-Z]{2,8}(/\\S*)?");
 
     protected ChatScreenMixin(Text title) {
         super(title);
@@ -74,6 +74,7 @@ public abstract class ChatScreenMixin extends Screen {
         }
     }
 
+    @Unique
     private void rightClickMenu(int mouseX, int mouseY, MinecraftClient client, Text text) {
         if (quickMenuWidget != null) {
             quickMenuWidget.remove();
@@ -108,6 +109,13 @@ public abstract class ChatScreenMixin extends Screen {
             if (style.getHoverEvent() != null) {
                 HoverEvent.Action<?> action = style.getHoverEvent().getAction();
                 if (action == HoverEvent.Action.SHOW_TEXT) {
+                    quickMenuWidget.addEntry(Text.literal("Copy Hover Text"), (entry, button) -> {
+                        Text hoverText = style.getHoverEvent().getValue(HoverEvent.Action.SHOW_TEXT);
+                        if (hoverText != null) {
+                            client.keyboard.setClipboard((hoverText).getString());
+                            entry.setName(Text.literal("Copied"));
+                        }
+                    });
                     quickMenuWidget.addEntry(Text.literal("Copy Hover Raw"), (entry, button) -> {
                         Text hoverText = style.getHoverEvent().getValue(HoverEvent.Action.SHOW_TEXT);
                         client.keyboard.setClipboard(Text.Serializer.toJson(hoverText));
@@ -157,6 +165,7 @@ public abstract class ChatScreenMixin extends Screen {
         addDrawable(quickMenuWidget);
     }
 
+    @Unique
     private ChatHudLine.Visible ct$geMessageAt(double x, double y) {
         ChatHud chatHud = MinecraftClient.getInstance().inGameHud.getChatHud();
         double d = chatHud.toChatLineX(x);
@@ -169,7 +178,7 @@ public abstract class ChatScreenMixin extends Screen {
 
     @Inject(method = "keyPressed", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screen/Screen;keyPressed(III)Z"), cancellable = true)
     private void ct$keyPressed(int keyCode, int scanCode, int modifiers, CallbackInfoReturnable<Boolean> cir) {
-        if (ChatScreen.hasControlDown()) {
+        if (hasControlDown()) {
             if (keyCode == GLFW.GLFW_KEY_UP) {
                 MinecraftClient.getInstance().inGameHud.getChatHud().scroll(1);
                 cir.setReturnValue(true);
@@ -181,6 +190,7 @@ public abstract class ChatScreenMixin extends Screen {
         }
     }
 
+    @Unique
     private ChatScreen ct$getThis() {
         return (ChatScreen) (Object) this;
     }

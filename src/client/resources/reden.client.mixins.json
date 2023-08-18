@@ -1,0 +1,27 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.github.zly2006.reden.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "client": [
+    "client.chat.ChatHudMixin",
+    "client.chat.ChatScreenMixin",
+    "client.chat.VisibleChatHudLineMixin",
+    "client.forceSyncEntityPos.MixinClientNetwork",
+    "client.forceSyncEntityPos.MixinWorldRenderer",
+    "client.render.MixinBlockModelRenderer",
+    "client.render.MixinChunkRebuildTask",
+    "client.render.MixinWorldRenderer",
+    "fix.NoTimeOut",
+    "fix.forceSyncEntityPos.MixinWorldRenderer",
+    "render.MixinBlockModelRenderer",
+    "render.MixinChunkRebuildTask",
+    "render.MixinWorldRenderer"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "mixins": [
+    "client.forceSyncEntityPos.MixinTracker"
+  ]
+}

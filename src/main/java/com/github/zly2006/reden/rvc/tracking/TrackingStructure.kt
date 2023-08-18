@@ -12,6 +12,7 @@ import net.minecraft.util.collection.IdList
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.Direction
 import net.minecraft.world.World
+import net.minecraft.world.tick.WorldTickScheduler
 import java.nio.file.Path
 
 /**
@@ -48,6 +49,10 @@ class TrackingStructure(
     override fun paste() {
         blocks.forEach { (pos, state) ->
             world.setBlockNoPP(pos, state, Block.NOTIFY_LISTENERS)
+        }
+        if (world.blockTickScheduler is WorldTickScheduler) {
+            val tickScheduler = world.blockTickScheduler as WorldTickScheduler
+            tickScheduler.tickCount
         }
     }
 

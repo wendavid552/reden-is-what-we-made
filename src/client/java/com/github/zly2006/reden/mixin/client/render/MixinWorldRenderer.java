@@ -1,4 +1,4 @@
-package com.github.zly2006.reden.mixin.render;
+package com.github.zly2006.reden.mixin.client.render;
 
 import net.minecraft.client.render.Camera;
 import net.minecraft.client.render.GameRenderer;

@@ -1,4 +1,4 @@
-package com.github.zly2006.reden.mixin.render;
+package com.github.zly2006.reden.mixin.client.render;
 
 import com.github.zly2006.reden.malilib.MalilibSettingsKt;
 import com.github.zly2006.reden.render.StructureOutline;
@@ -46,7 +46,7 @@ public class MixinChunkRebuildTask {
 
 
 
-        boolean hasOutline = pos != null && StructureOutline.INSTANCE.getSet$reden_is_what_we_made().contains(pos);
+        boolean hasOutline = pos != null && StructureOutline.INSTANCE.getSet().contains(pos);
 
         if (true) return;
         if (hasOutline || true) {

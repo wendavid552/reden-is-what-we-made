@@ -8,10 +8,8 @@ val ROLLBACK = Identifier("reden", "rollback")
 val TAG_BLOCK_POS = Identifier("reden", "tag_block_pos")
 val TNT_SYNC_PACKET = Identifier("reden", "tnt_sync_packet")
 fun register() {
-    TagBlockPos.register()
     Rollback.register()
     ChangeBreakpointPacket.register()
-    BreakPointInterrupt.register()
     StepUpdate.register()
     TntSyncPacket.register()
 }

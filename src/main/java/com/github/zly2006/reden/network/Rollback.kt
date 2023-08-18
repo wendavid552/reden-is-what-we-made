@@ -2,12 +2,10 @@ package com.github.zly2006.reden.network
 
 import com.github.zly2006.reden.access.PlayerData
 import com.github.zly2006.reden.access.PlayerData.Companion.data
-import com.github.zly2006.reden.malilib.DEBUG_LOGGER
 import com.github.zly2006.reden.mixinhelper.UpdateMonitorHelper
+import com.github.zly2006.reden.utils.debugLogger
 import com.github.zly2006.reden.utils.isClient
-import com.github.zly2006.reden.utils.sendMessage
 import com.github.zly2006.reden.utils.setBlockNoPP
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking
 import net.fabricmc.fabric.api.networking.v1.FabricPacket
 import net.fabricmc.fabric.api.networking.v1.PacketType
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking
@@ -16,12 +14,8 @@ import net.minecraft.entity.SpawnReason
 import net.minecraft.nbt.NbtHelper
 import net.minecraft.network.PacketByteBuf
 import net.minecraft.registry.Registries
-import net.minecraft.text.Text
 import net.minecraft.util.math.BlockPos
 
-private val pType = PacketType.create(ROLLBACK) {
-    Rollback(it.readVarInt())
-}
 class Rollback(
     val status: Int = 0
 ): FabricPacket {
@@ -31,6 +25,9 @@ class Rollback(
     }
 
     companion object {
+        val pType = PacketType.create(ROLLBACK) {
+            Rollback(it.readVarInt())
+        }
         fun register() {
             ServerPlayNetworking.registerGlobalReceiver(pType) { packet, player, res ->
                 val view = player.data()
@@ -49,9 +46,7 @@ class Rollback(
                     )
                     record.data.forEach { (pos, entry) ->
                         val state = NbtHelper.toBlockState(Registries.BLOCK.readOnlyWrapper, entry.blockState)
-                        if (DEBUG_LOGGER.booleanValue) {
-                            player.sendMessage("undo ${BlockPos.fromLong(pos)}, $state")
-                        }
+                        debugLogger("undo ${BlockPos.fromLong(pos)}, $state")
                         player.world.setBlockNoPP(
                             BlockPos.fromLong(pos),
                             state,
@@ -95,19 +90,7 @@ class Rollback(
                 }))
             }
             if (isClient) {
-                ClientPlayNetworking.registerGlobalReceiver(pType) { packet, player, res ->
-                    player.sendMessage(
-                        when (packet.status) {
-                            0 -> Text.literal("[Reden/Undo] Rollback success")
-                            1 -> Text.literal("[Reden/Undo] Restore success")
-                            2 -> Text.literal("[Reden/Undo] No blocks info")
-                            16 -> Text.literal("[Reden/Undo] No permission")
-                            32 -> Text.literal("[Reden/Undo] Not recording")
-                            65536 -> Text.literal("[Reden/Undo] Unknown error")
-                            else -> Text.literal("[Reden/Undo] Unknown status")
-                        }
-                    )
-                }
+
             }
         }
     }

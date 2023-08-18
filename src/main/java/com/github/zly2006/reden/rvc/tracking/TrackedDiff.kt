@@ -1,6 +1,5 @@
 package com.github.zly2006.reden.rvc.tracking
 
-import com.github.zly2006.reden.malilib.DO_ASSERTION_CHECKS
 import com.github.zly2006.reden.rvc.Person
 import com.github.zly2006.reden.rvc.nbt.DiffProvider
 import com.github.zly2006.reden.rvc.nbt.DirectDiff
@@ -73,11 +72,7 @@ class TrackedDiff(
             parentIds.map(storage::get)
                 .mapIndexed { index, it -> it!!.getBlockState(storage, pos.subtract(originDiff[index])) }
                 .filterNotNull()
-                .apply {
-                    if (size > 1 && DO_ASSERTION_CHECKS.booleanValue) {
-                        throw IllegalStateException("Found $size matching blocks. This diff may be broken")
-                    }
-                }.firstOrNull()
+                .firstOrNull()
         }
     }
 

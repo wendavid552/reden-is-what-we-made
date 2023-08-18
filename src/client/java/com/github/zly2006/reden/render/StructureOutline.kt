@@ -6,7 +6,7 @@ import net.minecraft.util.math.BlockPos
 
 @Environment(EnvType.CLIENT)
 object StructureOutline {
-    internal val set = mutableSetOf<BlockPos>()
+    val set = mutableSetOf<BlockPos>()
 
     init {
     }

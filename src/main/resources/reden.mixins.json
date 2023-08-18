@@ -10,8 +10,6 @@
     "common.MixinServer",
     "common.MixinServerPlayer",
     "common.MixinServerWorld",
-    "fix.forceSyncEntityPos.MixinClientNetwork",
-    "fix.forceSyncEntityPos.MixinTracker",
     "log.MixinClientCoon",
     "pearl.MixinExplosion",
     "tick.MixinTick",
@@ -31,14 +29,7 @@
     "undo.MixinUpdater"
   ],
   "client": [
-    "chat.ChatHudMixin",
-    "chat.ChatScreenMixin",
-    "chat.VisibleChatHudLineMixin",
-    "fix.NoTimeOut",
-    "fix.forceSyncEntityPos.MixinWorldRenderer",
-    "render.MixinBlockModelRenderer",
-    "render.MixinChunkRebuildTask",
-    "render.MixinWorldRenderer"
+    "fix.NoTimeOut"
   ],
   "injectors": {
     "defaultRequire": 1

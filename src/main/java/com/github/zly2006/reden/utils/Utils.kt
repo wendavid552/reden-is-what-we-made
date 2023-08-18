@@ -8,7 +8,6 @@ import net.fabricmc.api.EnvType
 import net.fabricmc.loader.api.FabricLoader
 import net.minecraft.block.Block
 import net.minecraft.block.BlockState
-import net.minecraft.client.gui.widget.ButtonWidget
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.server.MinecraftServer
 import net.minecraft.server.world.ServerWorld
@@ -35,9 +34,6 @@ fun <E> MutableList<E>.removeAtOrNull(index: Int): E? {
 }
 
 fun World.setBlockNoPP(pos: BlockPos, state: BlockState, flags: Int) {
-    if (isClient) {
-
-    }
     val stateBefore = getBlockState(pos)
     if (stateBefore.hasBlockEntity()) {
         removeBlockEntity(pos)
@@ -61,13 +57,8 @@ fun World.setBlockNoPP(pos: BlockPos, state: BlockState, flags: Int) {
 val isClient: Boolean get() = FabricLoader.getInstance().environmentType == EnvType.CLIENT
 
 object ResourceLoader {
-    fun loadBytes(path: String): ByteArray? {
-        val stream = Reden::class.java.classLoader.getResourceAsStream(path)
-        if (stream != null) {
-            return stream.readAllBytes()
-        }
-        else return null
-    }
+    fun loadBytes(path: String) =
+        Reden::class.java.classLoader.getResourceAsStream(path)?.readAllBytes()
 
     fun loadString(path: String): String {
         return loadBytes(path)!!.decodeToString()
@@ -87,6 +78,3 @@ object ResourceLoader {
             Json.decodeFromString(MapSerializer(String.serializer(), String.serializer()), it)
         }
 }
-
-fun buttonWidget(x: Int, y: Int, width: Int, height: Int, message: Text, onPress: ButtonWidget.PressAction) =
-    ButtonWidget(x, y, width, height, message, onPress) { it.get() }

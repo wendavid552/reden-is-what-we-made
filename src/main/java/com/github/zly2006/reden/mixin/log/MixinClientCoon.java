@@ -1,6 +1,6 @@
 package com.github.zly2006.reden.mixin.log;
 
-import com.github.zly2006.reden.malilib.MalilibSettingsKt;
+import com.github.zly2006.reden.utils.DebugKt;
 import net.minecraft.network.ClientConnection;
 import net.minecraft.network.listener.PacketListener;
 import net.minecraft.network.packet.Packet;
@@ -13,8 +13,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class MixinClientCoon {
     @Inject(method = "handlePacket", at = @At("HEAD"))
     private static <T extends PacketListener> void onPacket(Packet<T> packet, PacketListener listener, CallbackInfo ci) {
-        if (MalilibSettingsKt.DEBUG_PACKET_LOGGER.getBooleanValue()) {
-            System.out.println("Client received packet: " + packet.getClass().getName());
-        }
+        DebugKt.debugLogger.invoke("Client received packet: " + packet.getClass().getName());
     }
 }
