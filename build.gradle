@@ -11,6 +11,19 @@ plugins {
 version = project.mod_version + "+" + new SimpleDateFormat("MMddHHmm").format(new Date())
 group = project.maven_group
 
+loom {
+    splitEnvironmentSourceSets()
+
+    mods {
+        reden {
+            sourceSet sourceSets.main
+            sourceSet sourceSets.client
+        }
+    }
+
+    accessWidenerPath = file("src/main/resources/reden.accesswidener")
+}
+
 repositories {
     mavenCentral()
     maven {
@@ -24,7 +37,6 @@ repositories {
 }
 
 dependencies {
- //   implementation 'org.bouncycastle:'
     // To change the versions see the gradle.properties file
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
     mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
@@ -50,19 +62,6 @@ test {
 
 base {
     archivesName = project.archives_base_name
-}
-
-loom {
-    splitEnvironmentSourceSets()
-
-    mods {
-        reden {
-            sourceSet sourceSets.main
-            sourceSet sourceSets.client
-        }
-    }
-
-    accessWidenerPath = file("src/main/resources/reden.accesswidener")
 }
 
 processResources {
