@@ -282,6 +282,12 @@ object RedenInjectConfig {
                         node.instructions.insert(insnNode, InsnList().apply {
                             add(VarInsnNode(Opcodes.ALOAD, 0))
                             add(
+                                TypeInsnNode(
+                                    Opcodes.CHECKCAST,
+                                    "kotlin/coroutines/Continuation"
+                                )
+                            )
+                            add(
                                 FieldInsnNode(
                                     Opcodes.PUTSTATIC,
                                     "com/github/zly2006/reden/Reden",
