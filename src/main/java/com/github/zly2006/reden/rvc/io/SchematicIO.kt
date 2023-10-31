@@ -4,6 +4,7 @@ import com.github.zly2006.reden.rvc.*
 import net.minecraft.nbt.NbtCompound
 import net.minecraft.nbt.NbtElement
 import net.minecraft.nbt.NbtIo
+import net.minecraft.nbt.NbtTagSizeTracker
 import net.minecraft.registry.Registries
 import net.minecraft.structure.StructureTemplate
 import net.minecraft.util.math.BlockPos
@@ -58,7 +59,7 @@ object SchematicIO: StructureIO {
 
     override fun load(path: Path, structure: IWritableStructure) {
         if (path.extension.lowercase() != "schematic") throw IllegalArgumentException("path must be a schematic file")
-        val nbt = NbtIo.readCompressed(path.toFile())
+        val nbt = NbtIo.readCompressed(path.toFile(), NbtTagSizeTracker.ofUnlimitedBytes())
         val formatName = if (nbt.contains(Names.MATERIALS)) nbt.getString(Names.MATERIALS)
         else Names.FORMAT_STRUCTURE
         val format = FORMATS[formatName]

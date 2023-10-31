@@ -35,7 +35,8 @@ import java.util.List;
         AbstractFurnaceBlockEntity.class,
         BrewingStandBlockEntity.class,
         ChiseledBookshelfBlockEntity.class,
-        JukeboxBlockEntity.class,
+        HopperBlockEntity.class,
+        CrafterBlockEntity.class,
         //todo
         //  LecternBlockEntity.class,
         LootableContainerBlockEntity.class,

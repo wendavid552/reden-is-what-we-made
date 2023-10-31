@@ -8,7 +8,7 @@ import com.github.zly2006.reden.debugger.stages.NetworkStage;
 import com.github.zly2006.reden.mixin.debugger.MixinServer;
 import net.minecraft.network.ClientConnection;
 import net.minecraft.network.PacketCallbacks;
-import net.minecraft.network.packet.s2c.play.DisconnectS2CPacket;
+import net.minecraft.network.packet.s2c.common.DisconnectS2CPacket;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.ServerNetworkIo;
 import net.minecraft.text.Text;
@@ -26,14 +26,13 @@ import java.util.function.BooleanSupplier;
 
 import static com.github.zly2006.reden.access.ServerData.data;
 
-@SuppressWarnings("AddedMixinMembersNamePattern")
 @Mixin(value = ServerNetworkIo.class, priority = Reden.REDEN_HIGHEST_MIXIN_PRIORITY)
 public class MixinNetworkIo {
     @Shadow @Final MinecraftServer server;
 
     @Shadow @Final private static Logger LOGGER;
 
-    @Shadow @Final private List<ClientConnection> connections;
+    @Shadow @Final List<ClientConnection> connections;
 
     /**
      * Called by {@link MixinServer#tickWorlds(BooleanSupplier)} iff {@code stage instanceof GlobalNetworkStage}

@@ -112,11 +112,6 @@ public class QuickMenuWidget implements Selectable, Drawable, Element {
         parent.remove(this);
     }
 
-    @Override
-    public boolean mouseScrolled(double mouseX, double mouseY, double amount) {
-        remove();
-        return false;
-    }
 
     @Override
     public void setFocused(boolean focused) {

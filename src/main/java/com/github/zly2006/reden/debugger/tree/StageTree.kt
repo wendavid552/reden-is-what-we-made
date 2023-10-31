@@ -2,8 +2,6 @@ package com.github.zly2006.reden.debugger.tree
 
 import com.github.zly2006.reden.Reden
 import com.github.zly2006.reden.debugger.TickStage
-import com.github.zly2006.reden.debugger.disableWatchDog
-import com.github.zly2006.reden.utils.server
 import io.netty.util.internal.UnstableApi
 import okhttp3.internal.toHexString
 import org.jetbrains.annotations.TestOnly
@@ -85,11 +83,6 @@ class StageTree: Iterator<TickStage> {
             tickedStages.removeAt(it)
         }
         stagesToReset.forEach { it.reset() }
-    }
-
-    fun pauseGame() {
-        server.timeReference = Long.MAX_VALUE
-        disableWatchDog = true
     }
 
     fun peekLeaf(): TickStage {

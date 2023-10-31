@@ -95,7 +95,6 @@ accessible method net/minecraft/server/MinecraftServer runTasksTillTickEnd ()V
 accessible field net/minecraft/client/util/NarratorManager narrator Lcom/mojang/text2speech/Narrator;
 accessible field net/minecraft/server/PlayerManager players Ljava/util/List;
 accessible field net/minecraft/server/PlayerManager playerMap Ljava/util/Map;
-accessible field net/minecraft/server/network/ServerPlayNetworkHandler connection Lnet/minecraft/network/ClientConnection;
 accessible field net/minecraft/network/ClientConnection channel Lio/netty/channel/Channel;
 accessible field net/minecraft/network/ClientConnection address Ljava/net/SocketAddress;
 accessible method net/minecraft/network/ClientConnection sendQueuedPackets ()V
@@ -104,7 +103,6 @@ accessible class net/minecraft/world/block/ChainRestrictedNeighborUpdater$Simple
 accessible class net/minecraft/world/block/ChainRestrictedNeighborUpdater$SixWayEntry
 accessible class net/minecraft/world/block/ChainRestrictedNeighborUpdater$StateReplacementEntry
 accessible field net/minecraft/world/block/ChainRestrictedNeighborUpdater$SixWayEntry currentDirectionIndex I
-accessible field net/minecraft/server/MinecraftServer timeReference J
 accessible field net/minecraft/world/block/ChainRestrictedNeighborUpdater$SixWayEntry pos Lnet/minecraft/util/math/BlockPos;
 accessible method net/minecraft/world/block/ChainRestrictedNeighborUpdater$StatefulEntry <init> (Lnet/minecraft/block/BlockState;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/Block;Lnet/minecraft/util/math/BlockPos;Z)V
 accessible method net/minecraft/world/block/ChainRestrictedNeighborUpdater$SixWayEntry <init> (Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/Block;Lnet/minecraft/util/math/Direction;)V
@@ -115,5 +113,6 @@ accessible method net/minecraft/world/block/ChainRestrictedNeighborUpdater$Simpl
 accessible method net/minecraft/world/block/ChainRestrictedNeighborUpdater$StateReplacementEntry <init> (Lnet/minecraft/util/math/Direction;Lnet/minecraft/block/BlockState;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/util/math/BlockPos;II)V
 accessible field net/minecraft/entity/ItemEntity STACK Lnet/minecraft/entity/data/TrackedData;
 extendable class net/minecraft/item/ItemStack
-
-
+accessible field net/minecraft/server/MinecraftServer tickStartTimeNanos J
+accessible method net/minecraft/text/Text$Serialization toJson (Lnet/minecraft/text/Text;)Lcom/google/gson/JsonElement;
+accessible field net/minecraft/server/network/ServerCommonNetworkHandler connection Lnet/minecraft/network/ClientConnection;

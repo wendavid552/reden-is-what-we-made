@@ -5,7 +5,6 @@ import io.netty.channel.*;
 import io.netty.channel.local.LocalChannel;
 import net.minecraft.network.ClientConnection;
 import net.minecraft.network.NetworkSide;
-import net.minecraft.network.NetworkState;
 import net.minecraft.server.ServerNetworkIo;
 import org.jetbrains.annotations.NotNull;
 
@@ -44,7 +43,6 @@ public class FakeConnection extends ClientConnection {
                 .channel(LocalChannel.class)
                 .connect(io.bindLocal())
                 .syncUninterruptibly();
-        this.setState(NetworkState.PLAY);
         this.registered = true;
     }
 

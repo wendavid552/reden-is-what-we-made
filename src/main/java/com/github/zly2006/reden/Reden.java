@@ -24,7 +24,9 @@ import net.minecraft.command.argument.ItemStackArgument;
 import net.minecraft.command.argument.ItemStackArgumentType;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.network.packet.c2s.common.SyncedClientOptions;
 import net.minecraft.server.command.CommandManager;
+import net.minecraft.server.network.ConnectedClientData;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Uuids;
@@ -85,7 +87,12 @@ public class Reden implements ModInitializer, CarpetExtension {
                                             fakeConnection.register(context.getSource().getServer().getNetworkIo());
                                             context.getSource().getServer().getPlayerManager().onPlayerConnect(
                                                     fakeConnection,
-                                                    fakePlayer
+                                                    fakePlayer,
+                                                    new ConnectedClientData(
+                                                            new GameProfile(uuid, name),
+                                                            0,
+                                                            SyncedClientOptions.createDefault()
+                                                    )
                                             );
                                             return 1;
                                         })

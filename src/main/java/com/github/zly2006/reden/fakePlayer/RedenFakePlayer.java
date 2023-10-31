@@ -3,17 +3,21 @@ package com.github.zly2006.reden.fakePlayer;
 import com.google.common.collect.Lists;
 import com.mojang.authlib.GameProfile;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.network.packet.c2s.common.SyncedClientOptions;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.PlayerManager;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
-import net.minecraft.util.Uuids;
 
 import java.util.List;
 import java.util.UUID;
 
 public class RedenFakePlayer extends ServerPlayerEntity {
+    public RedenFakePlayer(MinecraftServer server, ServerWorld world, GameProfile profile, SyncedClientOptions clientOptions) {
+        super(server, world, profile, clientOptions);
+    }
+
     /**
      * Note: you should call {@link PlayerManager#onPlayerConnect} manually after creating a fake player.
      * @param server the server
@@ -23,7 +27,7 @@ public class RedenFakePlayer extends ServerPlayerEntity {
      */
     public static RedenFakePlayer create(MinecraftServer server, GameProfile profile, boolean canKickExisting) {
         PlayerManager playerManager = server.getPlayerManager();
-        UUID uUID = Uuids.getUuidFromProfile(profile);
+        UUID uUID = profile.getId();
         List<ServerPlayerEntity> list = Lists.newArrayList();
 
         for(int i = 0; i < playerManager.players.size(); ++i) {
@@ -47,10 +51,7 @@ public class RedenFakePlayer extends ServerPlayerEntity {
             throw new RuntimeException("You tried to login with a duplicate UUID.");
         }
 
-        return new RedenFakePlayer(server, server.getOverworld(), profile);
-    }
-    public RedenFakePlayer(MinecraftServer server, ServerWorld world, GameProfile profile) {
-        super(server, world, profile);
+        return new RedenFakePlayer(server, server.getOverworld(), profile, SyncedClientOptions.createDefault());
     }
 
     @Override

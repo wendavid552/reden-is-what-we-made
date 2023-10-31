@@ -105,9 +105,9 @@ dependencies {
     // Kotlin support
     modImplementation("net.fabricmc:fabric-language-kotlin:1.9.2+kotlin.1.8.10")
     // MaLiLib, required on client
-    modImplementation "fi.dy.masa.malilib:malilib-fabric-1.20.1:0.16.2"
+    modImplementation "curse.maven:malilib-303119:4788432"
     // carpet, required on client & server
-    modImplementation "carpet:fabric-carpet:1.20-1.4.112+v230608"
+    modImplementation "carpet:fabric-carpet:23w43a-1.4.123+v231025"
     // Game test
     testImplementation "net.fabricmc:fabric-loader-junit:${project.loader_version}"
     // Conditional Mixin
@@ -117,8 +117,8 @@ dependencies {
     include(implementation("com.squareup.okhttp3:okhttp:4.11.0"))
     include(implementation("org.eclipse.jgit:org.eclipse.jgit:6.6.0.202305301015-r"))
     include(implementation("com.squareup.okio:okio-jvm:3.2.0"))
-    modImplementation "curse.maven:litematica-308892:4626718"
-    modImplementation "curse.maven:tweakeroo-297344:4623488"
+    modImplementation "curse.maven:litematica-308892:4789765"
+    modImplementation "curse.maven:tweakeroo-297344:4788437"
     modImplementation "maven.modrinth:modmenu:7.2.1"
     modImplementation "io.wispforest:owo-lib:${project.owo_version}"
     include "io.wispforest:owo-sentinel:${project.owo_version}"

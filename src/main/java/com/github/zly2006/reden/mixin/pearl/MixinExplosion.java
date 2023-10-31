@@ -15,6 +15,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -32,7 +33,7 @@ public class MixinExplosion {
             ),
             locals = LocalCapture.CAPTURE_FAILHARD
     )
-    private void onExplode(CallbackInfo ci, Set set, int a, float q, int k, int l, int r, int s, int t, int u, List list, Vec3d vec3d, int v, Entity entity) {
+    private void onExplode(CallbackInfo ci, Set set, int a, float q, int k, int l, int r, int s, int t, int u, List list, Vec3d vec3d, Iterator<Entity> iterator, Entity entity) {
         if (entity instanceof SnowballEntity snowball && !TntSyncPacket.Companion.getSyncedTntPos().contains(vec3d)) {
             if (snowball.getOwner() instanceof ServerPlayerEntity player) {
                 ServerPlayNetworking.send(player, new TntSyncPacket(

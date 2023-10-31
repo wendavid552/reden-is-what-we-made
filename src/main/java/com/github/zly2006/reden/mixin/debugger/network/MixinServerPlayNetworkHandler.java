@@ -5,10 +5,11 @@ import com.github.zly2006.reden.debugger.stages.TickStageWorldProvider;
 import net.minecraft.network.ClientConnection;
 import net.minecraft.network.packet.c2s.play.CommandExecutionC2SPacket;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.network.ConnectedClientData;
+import net.minecraft.server.network.ServerCommonNetworkHandler;
 import net.minecraft.server.network.ServerPlayNetworkHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
-import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -20,10 +21,10 @@ import java.util.Optional;
 import static com.github.zly2006.reden.access.ServerData.data;
 
 @Mixin(ServerPlayNetworkHandler.class)
-public class MixinServerPlayNetworkHandler {
-    @Shadow @Final private MinecraftServer server;
-
-    @Shadow @Final private ClientConnection connection;
+public abstract class MixinServerPlayNetworkHandler extends ServerCommonNetworkHandler {
+    public MixinServerPlayNetworkHandler(MinecraftServer server, ClientConnection connection, ConnectedClientData clientData) {
+        super(server, connection, clientData);
+    }
 
     @Shadow public ServerPlayerEntity player;
 
